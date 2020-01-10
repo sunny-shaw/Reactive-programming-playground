@@ -8,13 +8,13 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("v1/employees")
+@RequestMapping("v1")
 class EmployeeController(
         @Autowired
         val employeesRepository: EmployeesRepository
 ) {
 
-    @GetMapping
+    @GetMapping("/employees")
     fun getAllEmployees(): Flux<Employee> {
         return employeesRepository.findAll()
     }
@@ -24,7 +24,7 @@ class EmployeeController(
         return employeesRepository.findById(id)
     }
 
-    @PostMapping
+    @PostMapping("/employees")
     fun save(@RequestBody employee: Employee): Mono<Employee> {
         return employeesRepository.save(employee)
     }
@@ -39,7 +39,7 @@ class EmployeeController(
         return employeesRepository.deleteAll()
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/employees/{id}")
     fun delete(@PathVariable id: String): Mono<Void> {
         return employeesRepository.deleteById(id)
     }
